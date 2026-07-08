@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TESTE AVIATION CENTER</title>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Aviation Center SGC</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,34 +16,63 @@
 
 <div class="sidebar">
 
-    <h2>🚁 Aviation Center</h2>
+<div class="logo">
 
-    <ul>
+<h2>🚁 Aviation Center</h2>
 
-        <li class="active">🏠 Dashboard</li>
-        <li>📋 Sessões</li>
-        <li>🧰 Instrumentos</li>
-        <li>🚁 Aeronaves</li>
-        <li>👥 Clientes</li>
-        <li>🧪 Equipamentos</li>
-        <li>📚 Histórico</li>
-        <li>🔎 Auditoria</li>
-        <li>📊 Relatórios</li>
-        <li>⚙ Configurações</li>
+<p>SGC v0.2</p>
 
-    </ul>
+</div>
+
+<ul>
+
+<li class="menu active" onclick="mostrarTela('dashboard')">
+🏠 Dashboard
+</li>
+
+<li class="menu" onclick="mostrarTela('instrumentos')">
+🧰 Instrumentos
+</li>
+
+<li class="menu">
+📋 Sessões
+</li>
+
+<li class="menu">
+🚁 Aeronaves
+</li>
+
+<li class="menu">
+👥 Clientes
+</li>
+
+<li class="menu">
+🧪 Equipamentos
+</li>
+
+<li class="menu">
+📚 Histórico
+</li>
+
+<li class="menu">
+🔎 Auditoria
+</li>
+
+<li class="menu">
+⚙ Configurações
+</li>
+
+</ul>
 
 </div>
 
 <div class="content">
 
-<header>
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="pagina">
 
 <h1>Dashboard</h1>
-
-<p>Sistema de Gestão de Calibração</p>
-
-</header>
 
 <div class="cards">
 
@@ -79,8 +110,6 @@
 
 </div>
 
-<div class="table">
-
 <h2>Sessões Recentes</h2>
 
 <table>
@@ -88,42 +117,132 @@
 <tr>
 
 <th>ID</th>
+
 <th>Prefixo</th>
+
 <th>Status</th>
 
 </tr>
 
 <tr>
 
-<td>CAL-000154</td>
+<td>CAL-00154</td>
+
 <td>PR-HXX</td>
+
 <td>Em andamento</td>
 
 </tr>
 
 <tr>
 
-<td>CAL-000153</td>
+<td>CAL-00153</td>
+
 <td>PR-HCB</td>
-<td>Finalizada</td>
 
-</tr>
-
-<tr>
-
-<td>CAL-000152</td>
-<td>PR-ABC</td>
 <td>Finalizada</td>
 
 </tr>
 
 </table>
 
-</div>
+</section>
+
+<!-- INSTRUMENTOS -->
+
+<section id="instrumentos" class="pagina oculto">
+
+<h1>Instrumentos</h1>
+
+<input
+type="text"
+id="pesquisa"
+placeholder="Pesquisar por P/N, S/N ou Instrumento">
+
+<br><br>
+
+<button>
+
+➕ Novo Instrumento
+
+</button>
+
+<br><br>
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>Instrumento</th>
+
+<th>P/N</th>
+
+<th>S/N</th>
+
+<th>Fabricante</th>
+
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>INS-001</td>
+
+<td>Altímetro</td>
+
+<td>5934P</td>
+
+<td>001245</td>
+
+<td>Collins</td>
+
+<td>✅</td>
+
+</tr>
+
+<tr>
+
+<td>INS-002</td>
+
+<td>Encoder</td>
+
+<td>8821A</td>
+
+<td>004521</td>
+
+<td>Bendix</td>
+
+<td>⚠️</td>
+
+</tr>
+
+<tr>
+
+<td>INS-003</td>
+
+<td>Transponder</td>
+
+<td>KT76A</td>
+
+<td>009812</td>
+
+<td>King</td>
+
+<td>✅</td>
+
+</tr>
+
+</table>
+
+</section>
 
 </div>
 
 <script src="app.js"></script>
 
 </body>
+
 </html>
