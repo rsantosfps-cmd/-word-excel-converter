@@ -225,7 +225,9 @@
     <section id="instrumentos" class="page">
       <div class="page-header">
         <h2>Instrumentos</h2>
-        <button class="btn-primary">+ Novo Instrumento</button>
+        <button class="btn-primary" id="btnNovoInstrumento">
+    + Novo Instrumento
+</button>
       </div>
 
       <input type="search" placeholder="Pesquisar por P/N, S/N ou Instrumento">
@@ -458,7 +460,99 @@ Nenhuma sessão finalizada.
           <h3>Empresa</h3>
           <p>Configurar dados da Aviation Center.</p>
         </div>
+<!-- ==========================================
+     MODAL - NOVO INSTRUMENTO
+========================================== -->
 
+<div id="modalInstrumento" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Novo Instrumento</h2>
+
+            <button id="fecharModal">&times;</button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>ID Interno</label>
+                    <input id="idInterno" placeholder="INS-001">
+                </div>
+
+                <div class="form-group">
+                    <label>Instrumento</label>
+                    <input id="nomeInstrumento">
+                </div>
+
+                <div class="form-group">
+                    <label>Fabricante</label>
+                    <input id="fabricante">
+                </div>
+
+                <div class="form-group">
+                    <label>Modelo</label>
+                    <input id="modeloInstrumento">
+                </div>
+
+                <div class="form-group">
+                    <label>P/N</label>
+                    <input id="partNumber">
+                </div>
+
+                <div class="form-group">
+                    <label>S/N</label>
+                    <input id="serialNumber">
+                </div>
+
+                <div class="form-group">
+                    <label>Prefixo</label>
+                    <input id="prefixoInstrumento">
+                </div>
+
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <input id="clienteInstrumento">
+                </div>
+
+                <div class="form-group">
+                    <label>Última Calibração</label>
+                    <input type="date" id="ultimaCalibracao">
+                </div>
+
+                <div class="form-group">
+                    <label>Próxima Calibração</label>
+                    <input type="date" id="proximaCalibracao">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button class="btn-secondary" id="cancelarInstrumento">
+
+Cancelar
+
+            </button>
+
+            <button class="btn-success" id="salvarInstrumento">
+
+Salvar Instrumento
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
         <div class="card">
           <h3>Usuários</h3>
           <p>Gerenciar acessos.</p>
