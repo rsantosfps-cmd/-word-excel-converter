@@ -1,176 +1,321 @@
-// ===================================================
-// AVIATION CENTER SGC
-// app.js - Sprint 2
-// ===================================================
+/* ===========================================
+   AVIATION CENTER SGC v0.4.0
+=========================================== */
 
-console.clear();
-console.log("Aviation Center SGC iniciado.");
+const paginas = document.querySelectorAll(".page");
+const botoesMenu = document.querySelectorAll(".menu-item");
 
-document.addEventListener("DOMContentLoaded", iniciarSistema);
+botoesMenu.forEach(botao => {
 
-function iniciarSistema() {
+    botao.addEventListener("click", () => {
 
-    configurarMenu();
+        botoesMenu.forEach(b=>b.classList.remove("active"));
+        botao.classList.add("active");
 
-    configurarPesquisa();
+        paginas.forEach(p=>p.classList.remove("active-page"));
 
-    configurarBotaoNovo();
+        const pagina=document.getElementById(botao.dataset.page);
 
-}
+        if(pagina){
 
-// ===========================================
-// MENU
-// ===========================================
+            pagina.classList.add("active-page");
 
-function configurarMenu() {
-
-    const menus = document.querySelectorAll(".sidebar li");
-
-    menus.forEach(item => {
-
-        item.addEventListener("click", function () {
-
-            menus.forEach(menu => {
-
-                menu.classList.remove("active");
-
-            });
-
-            this.classList.add("active");
-
-            abrirModulo(this.innerText);
-
-        });
+        }
 
     });
 
-}
+});
 
-// ===========================================
-// MÓDULOS
-// ===========================================
 
-function abrirModulo(nome) {
+/* ===========================================
+   MODAL
+=========================================== */
 
-    nome = nome.toLowerCase();
+const modal=document.getElementById("modalInstrumento");
 
-    if (nome.includes("dashboard")) {
+const btnNovo=document.getElementById("btnNovoInstrumento");
 
-        console.log("Dashboard aberto");
+const fechar=document.getElementById("fecharModal");
 
-    }
+const cancelar=document.getElementById("cancelarInstrumento");
 
-    else if (nome.includes("instrumentos")) {
 
-        console.log("Instrumentos aberto");
+if(btnNovo){
 
-        alert("Sprint 3\n\nCadastro de Instrumentos será aberto aqui.");
+btnNovo.onclick=()=>{
 
-    }
-
-    else if (nome.includes("sess")) {
-
-        alert("Módulo Sessões");
-
-    }
-
-    else if (nome.includes("aeronaves")) {
-
-        alert("Módulo Aeronaves");
-
-    }
-
-    else if (nome.includes("clientes")) {
-
-        alert("Módulo Clientes");
-
-    }
-
-    else if (nome.includes("equipamentos")) {
-
-        alert("Módulo Equipamentos");
-
-    }
-
-    else if (nome.includes("hist")) {
-
-        alert("Módulo Histórico");
-
-    }
-
-    else if (nome.includes("auditoria")) {
-
-        alert("Módulo Auditoria");
-
-    }
-
-    else if (nome.includes("relatórios")) {
-
-        alert("Módulo Relatórios");
-
-    }
-
-    else if (nome.includes("config")) {
-
-        alert("Configurações");
-
-    }
+modal.style.display="flex";
 
 }
 
-// ===========================================
-// PESQUISA
-// ===========================================
+}
 
-function configurarPesquisa() {
+if(fechar){
 
-    const campo = document.querySelector("input");
+fechar.onclick=()=>{
 
-    if (!campo) return;
-
-    campo.addEventListener("keyup", function () {
-
-        console.log("Pesquisar:", this.value);
-
-    });
+modal.style.display="none";
 
 }
 
-// ===========================================
-// BOTÃO NOVO INSTRUMENTO
-// ===========================================
+}
 
-function configurarBotaoNovo() {
+if(cancelar){
 
-    const botao = document.querySelector("button");
+cancelar.onclick=()=>{
 
-    if (!botao) return;
-
-    botao.addEventListener("click", novoInstrumento);
+modal.style.display="none";
 
 }
 
-function novoInstrumento() {
+}
 
-    alert(
-        "Novo Instrumento\n\n" +
-        "Esta função será implementada no Sprint 3."
-    );
+window.onclick=(e)=>{
+
+if(e.target===modal){
+
+modal.style.display="none";
 
 }
 
-// ===========================================
-// DASHBOARD
-// ===========================================
+}
 
-function atualizarDashboard() {
 
-    console.log("Dashboard atualizado.");
+/* ===========================================
+   BANCO LOCAL
+=========================================== */
+
+let instrumentos=
+
+JSON.parse(localStorage.getItem("instrumentos")) || [];
+
+
+/* ===========================================
+   SALVAR
+=========================================== */
+
+const btnSalvar=document.getElementById("salvarInstrumento");
+
+if(btnSalvar){
+
+btnSalvar.onclick=()=>{
+
+const instrumento={
+
+id:
+
+document.getElementById("idInterno").value,
+
+nome:
+
+document.getElementById("nomeInstrumento").value,
+
+fabricante:
+
+document.getElementById("fabricante").value,
+
+modelo:
+
+document.getElementById("modeloInstrumento").value,
+
+pn:
+
+document.getElementById("partNumber").value,
+
+sn:
+
+document.getElementById("serialNumber").value,
+
+prefixo:
+
+document.getElementById("prefixoInstrumento").value,
+
+cliente:
+
+document.getElementById("clienteInstrumento").value,
+
+ultima:
+
+document.getElementById("ultimaCalibracao").value,
+
+proxima:
+
+document.getElementById("proximaCalibracao").value
+
+};
+
+instrumentos.push(instrumento);
+
+localStorage.setItem(
+
+"instrumentos",
+
+JSON.stringify(instrumentos)
+
+);
+
+renderTabela();
+
+limparFormulario();
+
+modal.style.display="none";
 
 }
 
-// ===========================================
-// LOG
-// ===========================================
+}
 
-console.log("app.js carregado com sucesso.");
+
+/* ===========================================
+   TABELA
+=========================================== */
+
+function renderTabela(){
+
+const tbody=document.querySelector("#instrumentos tbody");
+
+if(!tbody)return;
+
+tbody.innerHTML="";
+
+instrumentos.forEach((item,index)=>{
+
+tbody.innerHTML+=`
+
+<tr>
+
+<td>${item.id}</td>
+
+<td>${item.nome}</td>
+
+<td>${item.pn}</td>
+
+<td>${item.sn}</td>
+
+<td>${item.fabricante}</td>
+
+<td>${item.prefixo}</td>
+
+<td>
+
+<span class="status-ok">
+
+Em dia
+
+</span>
+
+</td>
+
+<td>
+
+<button onclick="editar(${index})">
+
+✏️
+
+</button>
+
+<button onclick="excluir(${index})">
+
+🗑️
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+const total=document.getElementById("totalInstrumentos");
+
+if(total){
+
+total.innerHTML=instrumentos.length;
+
+}
+
+}
+
+
+/* ===========================================
+   EXCLUIR
+=========================================== */
+
+function excluir(index){
+
+if(confirm("Excluir instrumento?")){
+
+instrumentos.splice(index,1);
+
+localStorage.setItem(
+
+"instrumentos",
+
+JSON.stringify(instrumentos)
+
+);
+
+renderTabela();
+
+}
+
+}
+
+
+/* ===========================================
+   EDITAR
+=========================================== */
+
+function editar(index){
+
+const i=instrumentos[index];
+
+document.getElementById("idInterno").value=i.id;
+document.getElementById("nomeInstrumento").value=i.nome;
+document.getElementById("fabricante").value=i.fabricante;
+document.getElementById("modeloInstrumento").value=i.modelo;
+document.getElementById("partNumber").value=i.pn;
+document.getElementById("serialNumber").value=i.sn;
+document.getElementById("prefixoInstrumento").value=i.prefixo;
+document.getElementById("clienteInstrumento").value=i.cliente;
+document.getElementById("ultimaCalibracao").value=i.ultima;
+document.getElementById("proximaCalibracao").value=i.proxima;
+
+instrumentos.splice(index,1);
+
+localStorage.setItem(
+
+"instrumentos",
+
+JSON.stringify(instrumentos)
+
+);
+
+renderTabela();
+
+modal.style.display="flex";
+
+}
+
+
+/* ===========================================
+   LIMPAR
+=========================================== */
+
+function limparFormulario(){
+
+document.querySelectorAll("#modalInstrumento input").forEach(campo=>{
+
+campo.value="";
+
+});
+
+}
+
+
+/* ===========================================
+   INICIAR
+=========================================== */
+
+renderTabela();
